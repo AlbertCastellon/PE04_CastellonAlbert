@@ -9,7 +9,7 @@ public class PE04_CastellonAlbert {
     public static void main(String[] args) {
         System.out.println("Què vols controlar?");
         System.out.println("1. Llums");
-        while (menuStrate == 0){
+  
             System.out.println("Escull una opció");
             try {
                 mainMenu = escaner.nextInt();
@@ -20,7 +20,6 @@ public class PE04_CastellonAlbert {
             if (mainMenu > 1 || mainMenu < 1){
                 System.out.println("Aquesta opció no esta disponeble encara.");
             }
-        }
         
     }
 }
