@@ -64,6 +64,14 @@ public class PE04_CastellonAlbert {
                         allLights(onOff);
                     }
                     break;
+                case 3:
+                    System.out.println("Llums:");
+                    System.out.println("Sala d'estar " + stateLights(lightLivRoom));
+                    System.out.println("Cuina " + stateLights(lightkitchen));
+                    System.out.println("Habitcació 1 " + stateLights(lightH1));
+                    System.out.println("Habitcació 2 " + stateLights(lightH1));
+                    System.out.println("Habitcació 3 " + stateLights(lightH3));
+                    break;
                 default:
                     break;
             }
@@ -99,5 +107,12 @@ public class PE04_CastellonAlbert {
                 room = false;
                 System.out.println("El llum de l'habitació s'ha apagat correctament");
             }
+    }
+    public static String stateLights(boolean room) {
+        if(room) {
+            return "on";
+        }else {
+            return "off";
+        }
     }
 }
