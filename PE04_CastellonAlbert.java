@@ -4,9 +4,11 @@ import java.util.Scanner;
 public class PE04_CastellonAlbert {
     boolean lightH1 = false, lightH2 = false, lightH3 = false, lightKitchen = false, lightLivRoom = false;
     boolean cameraH1 = false, cameraH2 = false, cameraH3 = false, cameraKitchen = false, cameraLivRoom = false;
+    boolean oven = false;
+    String modeOven = "none";
     double blindH1 = 0, blindH2 = 0, blindH3 = 0, blindKitchen = 0, blindLivRoom = 0;
     Scanner escaner = new Scanner(System.in);
-    int mainMenu = 0, menuLights = 0, menuRooms = 0, menuTemp = 0, menuCameras = 0, menuBlinds = 0;
+    int mainMenu = 0, menuLights = 0, menuRooms = 0, menuTemp = 0, menuCameras = 0, menuBlinds = 0, menuOven = 0;
     String onOff = "";
     double blindPercentatge = 0;
     public static void main(String[] args) {
@@ -23,6 +25,7 @@ public class PE04_CastellonAlbert {
         System.out.println("2. Temperatura");
         System.out.println("3. Cameres");
         System.out.println("4. Persianes");
+        System.out.println("5. Forn");
         System.out.println("6. Sortir");
   
             System.out.println("Escull una opció");
@@ -320,6 +323,16 @@ public class PE04_CastellonAlbert {
 
                     } while(menuBlinds != 0);
 
+                    break;
+                case 5:
+                    do{
+                        System.out.println("Forn: ");
+                        System.out.println("El forn esta " + stateDevices(oven));
+                        System.out.println("1. Encendre/apagar el forn");
+                        System.out.println("2. Controlar temperatura");
+                        System.out.println("3. Establir mode");
+                        System.out.println("4. Sortir");
+                    }while(menuOven != 0);
                     break;
                 case 6:
                     mainMenu = 0;
