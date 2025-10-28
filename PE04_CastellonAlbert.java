@@ -6,8 +6,9 @@ public class PE04_CastellonAlbert {
     boolean cameraH1 = false, cameraH2 = false, cameraH3 = false, cameraKitchen = false, cameraLivRoom = false;
     double blindH1 = 0, blindH2 = 0, blindH3 = 0, blindKitchen = 0, blindLivRoom = 0;
     Scanner escaner = new Scanner(System.in);
-    int mainMenu = 0, menuLights = 0, menuRooms = 0, menuTemp = 0, menuCameras = 0;
+    int mainMenu = 0, menuLights = 0, menuRooms = 0, menuTemp = 0, menuCameras = 0, menuBlinds = 0;
     String onOff = "";
+    double blindPercentatge = 0;
     public static void main(String[] args) {
         PE04_CastellonAlbert p = new PE04_CastellonAlbert();
         p.principal();
@@ -48,7 +49,7 @@ public class PE04_CastellonAlbert {
                         switch (menuLights) {
                             case 1:
                             do {
-                                System.out.println("De quina habitació vols controlar les llums?");
+                                System.out.println("De quina habitació vols controlar els llums?");
                                 System.out.println("1. Cuina");
                                 System.out.println("2. Sala d'estar");
                                 System.out.println("3. Habitació 1");
@@ -93,8 +94,8 @@ public class PE04_CastellonAlbert {
                                 break;
                             case 3:
                                 System.out.println("Llums:");
-                                System.out.println("Sala d'estar " + stateDevices(lightLivRoom));
                                 System.out.println("Cuina " + stateDevices(lightKitchen));
+                                System.out.println("Sala d'estar " + stateDevices(lightLivRoom));
                                 System.out.println("Habitcació 1 " + stateDevices(lightH1));
                                 System.out.println("Habitcació 2 " + stateDevices(lightH2));
                                 System.out.println("Habitcació 3 " + stateDevices(lightH3));
@@ -238,8 +239,8 @@ public class PE04_CastellonAlbert {
                                 break;
                             case 3:
                                 System.out.println("Cameres:");
-                                System.out.println("Sala d'estar " + stateDevices(cameraLivRoom));
                                 System.out.println("Cuina " + stateDevices(cameraKitchen));
+                                System.out.println("Sala d'estar " + stateDevices(cameraLivRoom));
                                 System.out.println("Habitcació 1 " + stateDevices(cameraH1));
                                 System.out.println("Habitcació 2 " + stateDevices(cameraH2));
                                 System.out.println("Habitcació 3 " + stateDevices(cameraH3));
@@ -251,7 +252,74 @@ public class PE04_CastellonAlbert {
                     }while (menuCameras != 0);
                     break;
                 case 4:
-                    
+                    do {
+                        System.out.println("Persianes:");
+                        System.out.println("1. Controlar les persianes d'una habitació");
+                        System.out.println("2. Controlar totes les persianes");
+                        System.out.println("3. Mostra l'estat de les persianes");
+                        System.out.println("4. Sortir");
+                        menuBlinds = escaner.nextInt();
+                        switch(menuBlinds) {
+                            case 1:
+                            do {
+                                System.out.println("De quina habitació vols controlar les persianes?");
+                                System.out.println("1. Cuina");
+                                System.out.println("2. Sala d'estar");
+                                System.out.println("3. Habitació 1");
+                                System.out.println("4. Habitació 2");
+                                System.out.println("5. Habitació 3");
+                                System.out.println("6. Sortir");
+                                menuRooms = escaner.nextInt();
+                                System.out.println("A quin percentatge vols ajustar la persiana?");
+                                System.out.println("0 persiana completament oberta");
+                                if(menuRooms < 6 && menuRooms > 0){
+                                    System.out.println("100 persiana completament tancada");
+                                    blindPercentatge = escaner.nextDouble();
+                                }
+                                switch (menuRooms) {
+                                    case 1:
+                                        blindKitchen = blindPercentatge;
+                                        break;
+                                    case 2:
+                                        blindLivRoom = blindPercentatge;
+                                        break;
+                                    case 3:
+                                        blindH1 = blindPercentatge;
+                                        break;
+                                    case 4:
+                                        blindH2 = blindPercentatge;
+                                        break;
+                                    case 5:
+                                        blindH3 = blindPercentatge;
+                                        break;
+                                    case 6:
+                                        menuRooms = 0;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                blindMessage(blindPercentatge);
+                            } while(menuRooms != 0);
+                                break;
+                            case 2:
+                                System.out.println("A quin percentatge vols ajustar les persianes de la casa?");
+                                System.out.println("0 persiana completament obertes");
+                                System.out.println("100 persiana completament tancades");
+                                blindPercentatge = escaner.nextDouble();
+                                allBlinds(blindPercentatge);
+                                break;
+                            case 3:
+                                stateBlinds();
+                                break;
+                            case 4:
+                                menuBlinds = 0;
+                                break;
+                            default:
+                                break;
+                        }
+
+                    } while(menuBlinds != 0);
+
                     break;
                 case 6:
                     mainMenu = 0;
@@ -326,8 +394,6 @@ public class PE04_CastellonAlbert {
             }else {
                 return 0;
             }
-            
-
         }
     }
     public double changeTemperature() {
@@ -342,5 +408,24 @@ public class PE04_CastellonAlbert {
         }else {
             return "off";
         }
+    }
+    public void blindMessage(double newPercentatgeBlinds){
+        System.out.println("La persiana s'ha ajustat al " + newPercentatgeBlinds + "%");
+    }
+    public void allBlinds(double newPercentatgeBlinds) {
+        blindH1 = newPercentatgeBlinds;
+        blindH2 = newPercentatgeBlinds;
+        blindH3 = newPercentatgeBlinds;
+        blindKitchen = newPercentatgeBlinds;
+        blindLivRoom = newPercentatgeBlinds;
+        System.out.println("Totes les persianes s'han ajustat al " + newPercentatgeBlinds + "%");
+    }
+    public void stateBlinds(){
+        System.out.println("Estat de les persianes:");
+        System.out.println("Cuina: " + blindKitchen + "%");
+        System.out.println("Sala d'estar: " + blindLivRoom + "%");
+        System.out.println("Habitació 1: " + blindH1 + "%");
+        System.out.println("Habitació 2: " + blindH2 + "%");
+        System.out.println("Habitació 3: " + blindH3 + "%");
     }
 }
