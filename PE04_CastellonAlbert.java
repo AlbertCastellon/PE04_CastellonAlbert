@@ -2,18 +2,26 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PE04_CastellonAlbert {
-    static boolean lightH1 = false, lightH2 = false, lightH3 = false, lightkitchen = false, lightLivRoom = false;
-    static boolean cameraH1 = false, cameraH2 = false, cameraH3 = false, camerakitchen = false, cameraLivRoom = false;
-    static Scanner escaner = new Scanner(System.in);
-    static int mainMenu = 0, menuLights = 0, menuRooms = 0, menuTemp = 0, menuCameras = 0;
-    static String onOff = "";
+    boolean lightH1 = false, lightH2 = false, lightH3 = false, lightKitchen = false, lightLivRoom = false;
+    boolean cameraH1 = false, cameraH2 = false, cameraH3 = false, cameraKitchen = false, cameraLivRoom = false;
+    double blindH1 = 0, blindH2 = 0, blindH3 = 0, blindKitchen = 0, blindLivRoom = 0;
+    Scanner escaner = new Scanner(System.in);
+    int mainMenu = 0, menuLights = 0, menuRooms = 0, menuTemp = 0, menuCameras = 0;
+    String onOff = "";
     public static void main(String[] args) {
+        PE04_CastellonAlbert p = new PE04_CastellonAlbert();
+        p.principal();
+    }
+
+    public void principal() {
+
         double temperature = 25;
         do {
         System.out.println("Què vols controlar?");
         System.out.println("1. Llums");
         System.out.println("2. Temperatura");
         System.out.println("3. Cameres");
+        System.out.println("4. Persianes");
         System.out.println("6. Sortir");
   
             System.out.println("Escull una opció");
@@ -50,7 +58,7 @@ public class PE04_CastellonAlbert {
                                 menuRooms = escaner.nextInt();
                                 switch (menuRooms) {
                                     case 1:
-                                        lightkitchen = roomLights();
+                                        lightKitchen = roomLights();
                                         break;
                                     case 2:
                                         lightLivRoom = roomLights();
@@ -86,7 +94,7 @@ public class PE04_CastellonAlbert {
                             case 3:
                                 System.out.println("Llums:");
                                 System.out.println("Sala d'estar " + stateDevices(lightLivRoom));
-                                System.out.println("Cuina " + stateDevices(lightkitchen));
+                                System.out.println("Cuina " + stateDevices(lightKitchen));
                                 System.out.println("Habitcació 1 " + stateDevices(lightH1));
                                 System.out.println("Habitcació 2 " + stateDevices(lightH2));
                                 System.out.println("Habitcació 3 " + stateDevices(lightH3));
@@ -100,7 +108,7 @@ public class PE04_CastellonAlbert {
                     }while (menuLights != 0);
                     break;
                 case 2: 
-                    System.out.println("control de temp");
+                    System.out.println("La temperatura està establerta a "+ temperature + "ºC");
                     do {
                         System.out.println("Com vols controlar de la temperatura?");
                         System.out.println("1. Incrementar");
@@ -145,6 +153,7 @@ public class PE04_CastellonAlbert {
                         System.out.println("2. Apagar o encendre totes les cameres");
                         System.out.println("3. Comprovar l'estat de les cameres");
                         System.out.println("4. Sortir");
+                        menuCameras = escaner.nextInt();
                         switch (menuCameras) {
                             case 1:
                             do {
@@ -159,11 +168,11 @@ public class PE04_CastellonAlbert {
                                 int action = 0;
                                 switch (menuRooms) {
                                     case 1:
-                                        action = roomCameras(camerakitchen);
+                                        action = roomCameras(cameraKitchen);
                                         if( action== 1 ){
                                             System.out.println("Reproduciendo video...");
                                         }else if (action == 2) {
-                                            camerakitchen = !camerakitchen;
+                                            cameraKitchen = !cameraKitchen;
                                         }else {
                                             menuRooms = 0;
                                         }
@@ -215,8 +224,9 @@ public class PE04_CastellonAlbert {
                                     default:
                                         break;
                                 }
-                                break;
+                                
                             }while(menuRooms != 0);
+                            break;
                             case 2:
                                  System.out.println("Apagar (off) o encendre (on) totes les cameres");
                                 onOff = escaner.next();
@@ -229,7 +239,7 @@ public class PE04_CastellonAlbert {
                             case 3:
                                 System.out.println("Cameres:");
                                 System.out.println("Sala d'estar " + stateDevices(cameraLivRoom));
-                                System.out.println("Cuina " + stateDevices(camerakitchen));
+                                System.out.println("Cuina " + stateDevices(cameraKitchen));
                                 System.out.println("Habitcació 1 " + stateDevices(cameraH1));
                                 System.out.println("Habitcació 2 " + stateDevices(cameraH2));
                                 System.out.println("Habitcació 3 " + stateDevices(cameraH3));
@@ -240,6 +250,9 @@ public class PE04_CastellonAlbert {
                         }
                     }while (menuCameras != 0);
                     break;
+                case 4:
+                    
+                    break;
                 case 6:
                     mainMenu = 0;
                     break;
@@ -249,20 +262,20 @@ public class PE04_CastellonAlbert {
         }while(mainMenu != 0);
     }
 
-    public static void onOffAllDevices(String turn, int menu) {
+    public void onOffAllDevices(String turn, int menu) {
         if(menu == 1){
             if (turn.equals("on")){
                 lightH1 = true;
                 lightH2 = true;
                 lightH3 = true;
-                lightkitchen = true;
+                lightKitchen = true;
                 lightLivRoom = true;
                 System.out.println("Les llums s'han encès correctament.");
             }else {
                 lightH1 = false;
                 lightH2 = false;
                 lightH3 = false;
-                lightkitchen = false;
+                lightKitchen = false;
                 lightLivRoom = false;
                 System.out.println("Les llums s'han apagat correctament.");
             }
@@ -271,20 +284,20 @@ public class PE04_CastellonAlbert {
                 cameraH1 = true;
                 cameraH2 = true;
                 cameraH3 = true;
-                camerakitchen = true;
+                cameraKitchen = true;
                 cameraLivRoom = true;
                 System.out.println("Les cameres s'han encès correctament.");
             }else {
                 cameraH1 = false;
                 cameraH2 = false;
                 cameraH3 = false;
-                camerakitchen = false;
+                cameraKitchen = false;
                 cameraLivRoom = false;
                 System.out.println("Les cameres s'han apagat correctament.");
             }
         }
     }
-    public static boolean roomLights() {
+    public boolean roomLights() {
         System.out.println("Vols apagar (off) o encendre (on) el llum?");
         onOff = escaner.next();
         boolean result = false;
@@ -299,7 +312,7 @@ public class PE04_CastellonAlbert {
             }
         return result;
     }
-    public static int roomCameras(boolean room) {
+    public int roomCameras(boolean room) {
         if(room) {
             System.out.println("La camera està encesa, vols apagar-la veure el video?");
             System.out.println("1. Veure video");
@@ -317,13 +330,13 @@ public class PE04_CastellonAlbert {
 
         }
     }
-    public static double changeTemperature() {
+    public double changeTemperature() {
         double tempChange = 0;
         tempChange = escaner.nextDouble();
         return tempChange;
         
     }
-    public static String stateDevices(boolean room) {
+    public String stateDevices(boolean room) {
         if(room) {
             return "on";
         }else {
