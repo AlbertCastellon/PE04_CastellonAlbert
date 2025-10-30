@@ -5,6 +5,7 @@ public class PE04_CastellonAlbert {
     boolean lightH1 = false, lightH2 = false, lightH3 = false, lightKitchen = false, lightLivRoom = false;
     boolean cameraH1 = false, cameraH2 = false, cameraH3 = false, cameraKitchen = false, cameraLivRoom = false;
     boolean oven = false;
+    double ovenTemperature;
     String modeOven = "none";
     double blindH1 = 0, blindH2 = 0, blindH3 = 0, blindKitchen = 0, blindLivRoom = 0;
     Scanner escaner = new Scanner(System.in);
@@ -331,7 +332,85 @@ public class PE04_CastellonAlbert {
                         System.out.println("1. Encendre/apagar el forn");
                         System.out.println("2. Controlar temperatura");
                         System.out.println("3. Establir mode");
-                        System.out.println("4. Sortir");
+                        System.out.println("4. Comprovar estat del forn");
+                        System.out.println("5. Programar");
+                        System.out.println("6. Sortir");
+                        menuOven = escaner.nextInt();
+                        switch(menuOven) {
+                            case 1:
+                                System.out.print("El forn esta " + stateDevices(oven));
+                                if (oven) {
+                                    System.out.println(", vols apagar-lo?(s/n)");                                    
+                                }else {
+                                    System.out.println(", vols encendre'l?(s/n)");
+                                }
+                                String answerOven = escaner.next();
+                                if(answerOven.equals("s")){
+                                    oven = !oven;
+                                    if(!oven) {
+                                        ovenTemperature = 0;
+                                        modeOven = "none";
+                                    }
+                                    System.out.println("El forn està ara " + stateDevices(oven));
+                                }
+                                break;
+                            case 2:
+                                if(oven) {
+                                    System.out.println("A quina temperatura vols establir el forn?");
+                                    ovenTemperature = escaner.nextDouble();
+                                }else {
+                                    System.out.println("El fron està apagat, encén-lo per establir una temperatura.");
+                                }
+                                break;
+                            case 3:
+                                if(oven) {
+                                    System.out.println("A quin mode vols establir el forn?");
+                                    System.out.println("1. Precalentar");
+                                    System.out.println("2. Gratinar");
+                                    System.out.println("3. Estatic");
+                                    System.out.println("4. Sortir");
+                                    String modeChoice = ovenModeControl(escaner.nextInt());
+                                    if(!modeChoice.equals(""));{
+                                        modeOven = modeChoice;
+                                    }
+
+                                }else {
+                                    System.out.println("El fron està apagat, encén-lo per establir un mode.");
+                                }
+                                break;
+                            case 4:
+                                System.out.println("Estat del forn");
+                                System.out.println("El forn esta " + stateDevices(oven));
+                                System.out.println("Temperatura: " + ovenTemperature + "ºC");
+                                System.out.println("Mode: " + modeOven);
+                                break;
+                            case 5:
+                                if(!oven){
+                                    System.out.println("Quan de temps vols programar per encendre el forn?");
+                                    System.out.println("Hores:");
+                                    int hours = escaner.nextInt();
+                                    System.out.println("Minuts:");
+                                    int min = escaner.nextInt();
+                                    temporitzador(hours, min);
+                                    System.out.println("Encenent el forn...");
+                                    oven = true;
+                                }else {
+                                    System.out.println("Quan de temps vols programar per apagar el forn?");
+                                    System.out.println("Hores:");
+                                    int hours = escaner.nextInt();
+                                    System.out.println("Minuts:");
+                                    int min = escaner.nextInt();
+                                    temporitzador(hours, min);
+                                    System.out.println("Apagant el forn...");
+                                    oven = false;
+                                    ovenTemperature = 0;
+                                    modeOven = "none";
+                                }
+                                break;
+                            case 6:
+                                menuOven = 0;
+                                break;
+                        }
                     }while(menuOven != 0);
                     break;
                 case 6:
@@ -440,5 +519,37 @@ public class PE04_CastellonAlbert {
         System.out.println("Habitació 1: " + blindH1 + "%");
         System.out.println("Habitació 2: " + blindH2 + "%");
         System.out.println("Habitació 3: " + blindH3 + "%");
+    }
+    public String ovenModeControl(int choice){
+        String result = "";
+        switch (choice) {
+            case 1:
+                result = "precalentar";
+                break;
+            case 2:
+                result = "gratinar";
+                break;
+            case 3:
+                result = "estatic";
+                break;
+            case 4:
+                break;
+        }
+        return result;
+    }
+    public void temporitzador(int hores, int min) {
+        for (int i = 0; i <= hores; i++){
+            if(hores == i){
+                for(int j = 0; j <= min; j ++){
+
+                }
+            }else{
+                for(int j = 0; j <= 59; j ++){
+
+                }
+            }
+            
+        }
+        System.out.println("S'ha acabat el temporitzador");
     }
 }
